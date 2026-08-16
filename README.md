@@ -65,3 +65,4 @@ you check 1 package or several.
 ## Related products
 
 - [NPM Package Update Tracker](https://github.com/timmKal01/npm-package-tracker) — new versions and deprecation warnings, the release-activity counterpart to this actor's usage-trend data
+- [PyPI Download Stats Tracker](https://github.com/timmKal01/pypi-download-stats-tracker) — the same trend tracking for PyPI/Python packages
