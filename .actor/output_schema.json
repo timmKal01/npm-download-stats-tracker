@@ -1,0 +1,11 @@
+{
+    "actorOutputSchemaVersion": 1,
+    "title": "Output schema of NPM Download Stats Tracker",
+    "properties": {
+        "results": {
+            "type": "string",
+            "title": "Stats",
+            "template": "{{links.apiDefaultDatasetUrl}}/items"
+        }
+    }
+}

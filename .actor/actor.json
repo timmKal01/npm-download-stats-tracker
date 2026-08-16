@@ -1,0 +1,13 @@
+{
+    "actorSpecification": 1,
+    "name": "npm-download-stats-tracker",
+    "title": "NPM Download Stats Tracker — Trend by Package",
+    "description": "Get download counts for one or more npm packages over a chosen period, plus percent change versus the prior period of the same length. For tracking adoption trends, not new releases.",
+    "version": "0.1",
+    "meta": {
+        "templateId": "custom-no-proxy"
+    },
+    "input": "./input_schema.json",
+    "output": "./output_schema.json",
+    "dockerfile": "../Dockerfile"
+}
