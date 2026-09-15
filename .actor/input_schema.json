@@ -7,7 +7,9 @@
             "title": "Packages",
             "type": "array",
             "editor": "stringList",
-            "description": "npm package names to check, e.g. \"react\", \"@angular/core\". At least one required."
+            "description": "npm package names to check, e.g. \"react\", \"@angular/core\". At least one required.",
+            "prefill": ["react"],
+            "default": ["react"]
         },
         "daysBack": {
             "title": "Period length (days)",
