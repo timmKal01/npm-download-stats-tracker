@@ -1,7 +1,7 @@
 {
     "actorSpecification": 1,
     "name": "npm-download-stats-tracker",
-    "title": "NPM Download Stats Tracker — Trend by Package",
+    "title": "npm Download Stats: Package Trends Over Time",
     "description": "Get download counts for one or more npm packages over a chosen period, plus percent change versus the prior period of the same length. For tracking adoption trends, not new releases.",
     "version": "0.1",
     "meta": {
