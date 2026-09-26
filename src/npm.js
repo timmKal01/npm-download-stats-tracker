@@ -21,7 +21,8 @@ async function fetchWithRetry(url, { retries = 4, baseDelayMs = 1500 } = {}) {
         const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
         try {
             const res = await fetch(url, { headers: { Connection: 'close' }, signal: controller.signal });
-            if (res.ok) return res;
+            // 404 = unknown package: return it so that package gets null downloads instead of failing the run.
+            if (res.ok || res.status === 404) return res;
             if (![429, 500, 502, 503, 504].includes(res.status)) {
                 throw new Error(`npm downloads API request failed: ${res.status} ${res.statusText}`);
             }
@@ -40,11 +41,20 @@ async function fetchWithRetry(url, { retries = 4, baseDelayMs = 1500 } = {}) {
 
 async function fetchDownloads(packages, startDate, endDate) {
     const period = `${toDateOnly(startDate)}:${toDateOnly(endDate)}`;
-    const url = `${BASE_URL}/${period}/${packages.map(encodeURIComponent).join(',')}`;
-
-    const res = await fetchWithRetry(url);
-    const body = await res.json();
-    return normalizeResponse(body, packages);
+    // npm's bulk endpoint rejects any request that includes a scoped package (400), so scoped
+    // packages are fetched one at a time and the rest in a single bulk request.
+    const scoped = packages.filter((pkg) => pkg.startsWith('@'));
+    const unscoped = packages.filter((pkg) => !pkg.startsWith('@'));
+    const result = {};
+    if (unscoped.length) {
+        const res = await fetchWithRetry(`${BASE_URL}/${period}/${unscoped.map(encodeURIComponent).join(',')}`);
+        Object.assign(result, normalizeResponse(await res.json(), unscoped));
+    }
+    for (const pkg of scoped) {
+        const res = await fetchWithRetry(`${BASE_URL}/${period}/${encodeURIComponent(pkg)}`);
+        result[pkg] = await res.json();
+    }
+    return result;
 }
 
 export async function fetchDownloadStats({ packages, daysBack }) {
