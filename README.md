@@ -6,7 +6,7 @@ length.
 
 Built for tracking adoption trends — is a package gaining or losing
 ground — rather than watching for new releases (see [NPM Package Update
-Tracker](https://github.com/timmKal01/npm-package-tracker) for that).
+Tracker](https://apify.com/m_ctim/npm-package-tracker) for that).
 
 ## Input
 
@@ -64,5 +64,5 @@ you check 1 package or several.
 
 ## Related products
 
-- [NPM Package Update Tracker](https://github.com/timmKal01/npm-package-tracker) — new versions and deprecation warnings, the release-activity counterpart to this actor's usage-trend data
-- [PyPI Download Stats Tracker](https://github.com/timmKal01/pypi-download-stats-tracker) — the same trend tracking for PyPI/Python packages
+- [npm Package Update Tracker](https://apify.com/m_ctim/npm-package-tracker): new versions and deprecation warnings, the release-activity counterpart to this actor's usage-trend data
+- [PyPI Download Stats](https://apify.com/m_ctim/pypi-download-stats-tracker): the same trend tracking for PyPI/Python packages
