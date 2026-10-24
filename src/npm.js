@@ -1,3 +1,7 @@
+// Some public APIs refuse requests that identify themselves only as Node's default "node" user agent (data.cms.gov
+// started doing so in October 2026), so every request says which tool is asking and where to find it.
+const USER_AGENT = 'npm-download-stats-tracker/0.1 (+https://apify.com/m_ctim/npm-download-stats-tracker)';
+
 const BASE_URL = 'https://api.npmjs.org/downloads/point';
 const REQUEST_TIMEOUT_MS = 30_000;
 
@@ -20,7 +24,7 @@ async function fetchWithRetry(url, { retries = 4, baseDelayMs = 1500 } = {}) {
         const controller = new AbortController();
         const timeout = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
         try {
-            const res = await fetch(url, { headers: { Connection: 'close' }, signal: controller.signal });
+            const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT, Connection: 'close' }, signal: controller.signal });
             // 404 = unknown package: return it so that package gets null downloads instead of failing the run.
             if (res.ok || res.status === 404) return res;
             if (![429, 500, 502, 503, 504].includes(res.status)) {
